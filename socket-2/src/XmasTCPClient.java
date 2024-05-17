@@ -39,12 +39,11 @@ public class XmasTCPClient {
             //intはobject型でないのでObject型であるIntergerクラスに変換する。
 
 
-            XmasPresent present = new XmasPresent();
-            present.setMessage("クリスマスおめでとう！" + lineStr);
-            present.setPresent("消しゴム");
+            Math obj = new Math();
+            obj.setExecNumber(1);
 
 
-            oos.writeObject(present);
+            oos.writeObject(obj);
             oos.flush();
 			
 			/* サーバから判定結果を受信する */
@@ -52,12 +51,10 @@ public class XmasTCPClient {
                     new ObjectInputStream(socket.getInputStream());
             //String result = (String)ois.readObject();//返事を文字列型でキャストする。
 
-            XmasPresent okaeshiPresent = (XmasPresent) ois.readObject();
+            Math math = (Math) ois.readObject();
 
-            String replayMsg = okaeshiPresent.getMessage();
-            System.out.println("お返しのプレゼントについていたのメッセージは" + replayMsg);
-            String replayPresent = okaeshiPresent.getPresent();
-            System.out.println("お返しプレゼントは" + replayPresent);
+            int result = math.getResult();
+            System.out.println("結果は" + result);
 
             oos.close();
             ois.close();
